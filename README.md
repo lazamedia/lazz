@@ -1,1 +1,1 @@
-# lazz
+# mixu apps
