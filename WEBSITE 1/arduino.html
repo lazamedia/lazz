@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    h1 {
+      color: #ff0000;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="status">Status: Tidak Ada Gerakan</h1>
+
+  <script>
+    function updateStatus(status) {
+      document.getElementById("status").innerHTML = "Status: " + status;
+    }
+
+    // Fungsi untuk mengambil data dari NodeMCU
+    function fetchData() {
+      fetch("/")
+        .then(response => response.text())
+        .then(data => {
+          if (data.includes("Gerakan Terdeteksi")) {
+            updateStatus("Gerakan Terdeteksi");
+          } else {
+            updateStatus("Tidak Ada Gerakan");
+          }
+        })
+        .catch(error => {
+          console.error("Error fetching data:", error);
+        });
+    }
+
+    // Perbarui status setiap 3 detik
+    setInterval(fetchData, 3000);
+  </script>
+</body>
+</html>
